@@ -1,6 +1,7 @@
 import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Start from './screens/Start';
+import Waiting from './screens/Waiting';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -8,7 +9,8 @@ function App() {
   return (
     <SafeAreaProvider>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <Start />
+      {/* <Start /> */}
+      <Waiting />
     </SafeAreaProvider>
   );
 }
