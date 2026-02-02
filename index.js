@@ -1,6 +1,9 @@
 /**
  * @format
  */
+import 'react-native-url-polyfill/auto';
+import { Buffer } from 'buffer';
+global.Buffer = global.Buffer || Buffer;
 
 import 'react-native-gesture-handler';
 import { AppRegistry } from 'react-native';

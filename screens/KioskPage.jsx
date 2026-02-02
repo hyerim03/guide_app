@@ -54,6 +54,7 @@ export default KioskPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
   },
   header: {
     height: 192,
@@ -81,9 +82,9 @@ const styles = StyleSheet.create({
   grid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingHorizontal: 24,
     paddingTop: 24,
-    gap: 10,
+    paddingHorizontal: 8,
+    gap: 5,
   },
   orderBtn: {
     width: 600,

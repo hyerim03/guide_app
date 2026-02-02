@@ -1,8 +1,18 @@
+import { useNavigation } from '@react-navigation/native';
 import { Text, StyleSheet, Pressable } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import useMqtt from '../hook/useMqtt';
 
 const StartScreen = () => {
+  const navigation = useNavigation();
+  const { publish } = useMqtt();
+
+  const onClickStart = () => {
+    publish('customtopic', 'START');
+    navigation.navigate('wait');
+  };
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient style={styles.container} colors={['#CCDFFF', '#ffffff']}>
@@ -10,7 +20,7 @@ const StartScreen = () => {
         <Text style={styles.subText}>
           안내를 받으시려면 {'\n'}아래 버튼을 눌러주세요.
         </Text>
-        <Pressable onPress={() => console.log('click')} style={styles.button}>
+        <Pressable onPress={onClickStart} style={styles.button}>
           <Text style={styles.buttonText}>START</Text>
         </Pressable>
       </LinearGradient>
