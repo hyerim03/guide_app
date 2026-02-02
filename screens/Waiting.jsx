@@ -1,9 +1,24 @@
 import { useNavigation } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import useMqtt from '../hook/useMqtt';
 
 const Waiting = () => {
   const navigation = useNavigation();
+  const [state, setState] = useState(null);
+  const { subscribe } = useMqtt();
+
+  useEffect(() => {
+    console.log('subscribe test');
+    subscribe('customtopic', setState);
+    if (state == 'SCREEN_desc') {
+      return;
+    }
+    if (state == 'SCREEN_food') {
+      navigation.navigate('food');
+    }
+  }, [state]);
 
   return (
     <LinearGradient style={styles.container} colors={['#CCDFFF', '#ffffff']}>
