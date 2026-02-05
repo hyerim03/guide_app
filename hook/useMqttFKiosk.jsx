@@ -24,7 +24,7 @@ const useMqtt = () => {
       });
 
       globalClient.on('message', (topic, message) => {
-        console.log(`${topic} 토픽에서 온 메세지: ${message.toString()}`);
+        console.log(`${topic} 토픽에서 온 메세지: ${message}`);
       });
     }
 
@@ -50,7 +50,11 @@ const useMqtt = () => {
       connected: clientRef.current.connected,
     });
     if (clientRef.current?.connected) {
-      clientRef.current.subscribe(topic);
+      clientRef.current.subscribe(topic, err => {
+        if (!err) {
+          console.log('subscribe', topic);
+        }
+      });
       globalClient.on('message', (topic, message) => {
         setState(message);
       });

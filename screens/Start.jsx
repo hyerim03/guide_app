@@ -2,15 +2,15 @@ import { useNavigation } from '@react-navigation/native';
 import { Text, StyleSheet, Pressable } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import useMqtt from '../hook/useMqtt';
+import useMqtt from '../hook/useMqttFKiosk';
 
 const StartScreen = () => {
   const navigation = useNavigation();
   const { publish } = useMqtt();
 
   const onClickStart = () => {
-    publish('customtopic', 'START');
-    navigation.navigate('wait');
+    publish('ping', 'START');
+    navigation.navigate('food');
   };
 
   return (

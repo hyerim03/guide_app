@@ -1,10 +1,12 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import { MENU_DATA } from '../dummy/menu';
 import FoodItem from '../components/FoodItem';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import useMqtt from '../hook/useMqttFKiosk';
 
 const KioskPage = () => {
   const [menu, setMenu] = useState(0);
+  const { publish } = useMqtt();
 
   const selectMenu = number => {
     if (menu == number) {
@@ -15,8 +17,16 @@ const KioskPage = () => {
   };
 
   const order = () => {
-    console.log(menu);
+    if (menu == 0) {
+      ToastAndroid.show('메뉴가 선택되지 않았습니다.', ToastAndroid.LONG);
+    } else {
+      publish('ping', `selected Menu: ${menu}`);
+    }
   };
+
+  useEffect(() => {
+    publish('ping', `MENU: ${menu}`);
+  }, [menu]);
 
   return (
     <View style={styles.container}>

@@ -2,16 +2,16 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import useMqtt from '../hook/useMqtt';
+import useMqtt from '../hook/useMqttFKiosk';
 
 const Waiting = () => {
   const navigation = useNavigation();
-  const [state, setState] = useState(null);
+  const [state, setState] = useState('');
   const { subscribe } = useMqtt();
 
   useEffect(() => {
     console.log('subscribe test');
-    subscribe('customtopic', setState);
+    subscribe('ping', setState);
     if (state == 'SCREEN_desc') {
       return;
     }
