@@ -12,23 +12,27 @@ const Waiting = () => {
   useEffect(() => {
     console.log('subscribe test');
     subscribe('ping', setState);
+    subscribe('robot/control', setState);
     if (state == 'SCREEN_desc') {
       return;
     }
     if (state == 'SCREEN_food') {
       navigation.navigate('food');
     }
+    if (state == 'stop_robot') {
+      navigation.navigate('received');
+    }
   }, [state]);
 
   return (
     <LinearGradient style={styles.container} colors={['#CCDFFF', '#ffffff']}>
       <Text style={styles.mainText}>안내로봇이 설명중입니다...</Text>
-      <Pressable
+      {/* <Pressable
         onPress={() => navigation.navigate('food')}
         style={styles.button}
       >
         <Text style={styles.buttonText}>임시 버튼 </Text>
-      </Pressable>
+      </Pressable> */}
     </LinearGradient>
   );
 };

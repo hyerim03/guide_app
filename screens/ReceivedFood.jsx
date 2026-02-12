@@ -4,31 +4,24 @@ import LinearGradient from 'react-native-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import useMqtt from '../hook/useMqttFKiosk';
 
-const StartScreen = () => {
-  const navigation = useNavigation();
+const ReceivedFood = () => {
   const { publish } = useMqtt();
 
-  const onClickStart = () => {
-    publish('ping', 'START');
-    navigation.navigate('wait');
+  const onPressBtn = () => {
+    console.log('click');
   };
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <LinearGradient style={styles.container} colors={['#CCDFFF', '#ffffff']}>
-        <Text style={styles.mainText}>어서오세요</Text>
-        <Text style={styles.subText}>
-          안내를 받으시려면 {'\n'}아래 버튼을 눌러주세요.
-        </Text>
-        <Pressable onPress={onClickStart} style={styles.button}>
-          <Text style={styles.buttonText}>START</Text>
+        <Pressable onPress={onPressBtn} style={styles.button}>
+          <Text style={styles.buttonText}>수령하기</Text>
         </Pressable>
       </LinearGradient>
     </SafeAreaView>
   );
 };
 
-export default StartScreen;
+export default ReceivedFood;
 
 const styles = StyleSheet.create({
   container: {
