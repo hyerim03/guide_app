@@ -6,9 +6,12 @@ import useMqtt from '../hook/useMqttFKiosk';
 
 const ReceivedFood = () => {
   const { publish } = useMqtt();
+  const navigation = useNavigation();
 
   const onPressBtn = () => {
     console.log('click');
+    publish('ping', 'serve_com');
+    navigation.navigate('desc');
   };
   return (
     <SafeAreaView style={{ flex: 1 }}>

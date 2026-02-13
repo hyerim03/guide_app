@@ -1,4 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
+
 import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -22,11 +23,14 @@ const Waiting = () => {
     if (state == 'stop_robot') {
       navigation.navigate('received');
     }
+    if (state == 'AMR_END') {
+      console.log('AMR 시연 종료');
+    }
   }, [state]);
 
   return (
     <LinearGradient style={styles.container} colors={['#CCDFFF', '#ffffff']}>
-      <Text style={styles.mainText}>안내로봇이 설명중입니다...</Text>
+      <Text style={styles.mainText}>안내로봇이 시연중입니다...</Text>
       {/* <Pressable
         onPress={() => navigation.navigate('food')}
         style={styles.button}
