@@ -8,7 +8,7 @@ const useMqtt = () => {
 
   useEffect(() => {
     if (!globalClient) {
-      globalClient = mqtt.connect('ws://192.168.10.146:9001', {
+      globalClient = mqtt.connect('ws://192.168.10.140:9001', {
         clientId: 'guide_app_' + Math.random().toString(16).slice(2),
         keepalive: 30,
         clean: true,

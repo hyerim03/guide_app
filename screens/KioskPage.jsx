@@ -41,21 +41,24 @@ const KioskPage = () => {
       </View>
       <View style={styles.grid}>
         {MENU_DATA?.map(item => (
-          <View
-            key={item.id}
-            style={menu == item.id ? styles.selectedCell : null}
-          >
+          <View key={item.id}>
             <FoodItem
               menu={item.menu}
               number={item.id}
               price={item.price}
-              image={item.image}
+              image={menu == item.id ? item.selectImage : item.image}
               onClick={selectMenu}
             />
           </View>
         ))}
       </View>
-      <Pressable onPress={order} style={styles.orderBtn}>
+      <Pressable
+        onPress={order}
+        style={[
+          styles.orderBtn,
+          { backgroundColor: menu == 0 ? '#D6D6D6' : '#497FDA' },
+        ]}
+      >
         <Text style={styles.btnText}>주문하기</Text>
       </Pressable>
     </View>
@@ -72,7 +75,7 @@ const styles = StyleSheet.create({
   header: {
     height: 192,
     width: '100%',
-    backgroundColor: '#64481C',
+    backgroundColor: '#4A7FDA',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
@@ -83,14 +86,14 @@ const styles = StyleSheet.create({
   },
   subHeader: {
     height: 106,
-    backgroundColor: '#F3EEE6',
+    backgroundColor: '#D1E2FF',
     display: 'flex',
     justifyContent: 'center',
     paddingLeft: 41,
   },
   subHeaderText: {
     fontSize: 40,
-    color: '#E9A534',
+    color: '#497FDA',
   },
   grid: {
     flexDirection: 'row',
@@ -102,7 +105,6 @@ const styles = StyleSheet.create({
   orderBtn: {
     width: 600,
     height: 120,
-    backgroundColor: '#E8A73D',
     margin: 'auto',
     borderRadius: 60,
     justifyContent: 'center',
@@ -111,13 +113,5 @@ const styles = StyleSheet.create({
   btnText: {
     fontSize: 48,
     color: 'white',
-  },
-  selectedCell: {
-    transform: [{ translateY: -6 }],
-    shadowColor: '#000',
-    shadowOpacity: 0.25,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 10,
   },
 });

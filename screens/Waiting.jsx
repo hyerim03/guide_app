@@ -17,7 +17,7 @@ const Waiting = () => {
     if (state == 'SCREEN_desc') {
       return;
     }
-    if (state == 'SCREEN_food') {
+    if (state.includes('SCREEN_food')) {
       navigation.navigate('food');
     }
     if (state == 'stop_robot') {

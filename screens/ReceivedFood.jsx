@@ -14,13 +14,27 @@ const ReceivedFood = () => {
     navigation.navigate('desc');
   };
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <LinearGradient style={styles.container} colors={['#CCDFFF', '#ffffff']}>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerText}>푸드코트</Text>
+      </View>
+      <View style={styles.subHeader}>
+        <Text style={styles.subHeaderText}>Have a good day!</Text>
+      </View>
+      <View style={styles.wrap}>
+        <Text style={styles.subText}>
+          주문하신 음식을 {'\n'} 수령해 주세요.
+        </Text>
+        <ImageBackground
+          style={{ width: 447, height: 447 }}
+          source={MENU_DATA[num - 1].foodImage}
+          resizeMethod="cover"
+        ></ImageBackground>
         <Pressable onPress={onPressBtn} style={styles.button}>
-          <Text style={styles.buttonText}>수령하기</Text>
+          <Text style={styles.buttonText}>수령완료</Text>
         </Pressable>
-      </LinearGradient>
-    </SafeAreaView>
+      </View>
+    </View>
   );
 };
 
@@ -29,40 +43,54 @@ export default ReceivedFood;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 48,
-    alignItems: 'center',
+    backgroundColor: '#F2F7FF',
+  },
+  header: {
+    height: 192,
+    width: '100%',
+    backgroundColor: '#4A7FDA',
     display: 'flex',
-    flexDirection: 'column',
-    backgroundColor: '#fff',
+    alignItems: 'center',
     justifyContent: 'center',
-    gap: 80,
   },
-  mainText: {
-    fontSize: 56,
-    fontWeight: 'bold',
-    color: '#4A7FDA',
+  headerText: {
+    fontSize: 85,
+    color: 'white',
   },
-  subText: {
-    fontSize: 42,
-    fontWeight: 'bold',
-    color: '#4A7FDA',
-    textAlign: 'center',
-    lineHeight: 50,
+  subHeader: {
+    height: 106,
+    backgroundColor: '#D1E2FF',
+    display: 'flex',
+    justifyContent: 'center',
+    paddingLeft: 41,
+  },
+  subHeaderText: {
+    fontSize: 40,
+    color: '#497FDA',
+  },
+  wrap: {
+    alignItems: 'center',
+    gap: 70,
   },
   button: {
-    width: '100%',
+    width: 400,
     height: 110,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    borderColor: '#A6BCEC',
-    borderWidth: 5,
+    backgroundColor: '#497FDA',
+    borderRadius: 55,
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonText: {
     fontSize: 40,
+    color: 'white',
+    fontWeight: '700',
+  },
+  subText: {
+    fontSize: 50,
+    fontWeight: 'bold',
     color: '#4A7FDA',
-    fontWeight: '500',
+    textAlign: 'center',
+    marginTop: 40,
   },
 });

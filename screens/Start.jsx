@@ -8,8 +8,8 @@ const StartScreen = () => {
   const navigation = useNavigation();
   const { publish } = useMqtt();
 
-  const onClickStart = () => {
-    publish('ping', 'START');
+  const onClickStart = async () => {
+    await publish('ping/start', 'START');
     navigation.navigate('wait');
   };
 
