@@ -4,11 +4,13 @@ import FoodItem from '../components/FoodItem';
 import { useEffect, useState } from 'react';
 import useMqtt from '../hook/useMqttFKiosk';
 import { useNavigation } from '@react-navigation/native';
+import useMenuStore from '../stores/menu';
 
 const KioskPage = () => {
   const [menu, setMenu] = useState(0);
   const { publish } = useMqtt();
   const navigation = useNavigation();
+  const { setNum } = useMenuStore();
 
   const selectMenu = number => {
     if (menu == number) {
@@ -22,8 +24,10 @@ const KioskPage = () => {
     if (menu == 0) {
       ToastAndroid.show('메뉴가 선택되지 않았습니다.', ToastAndroid.LONG);
     } else {
+      setNum(menu);
       publish('ping', `selected Menu: ${menu}`);
-      navigation.navigate('order_com');
+      publish('ping', 'order_completed');
+      navigation.navigate('received');
     }
   };
 

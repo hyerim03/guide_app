@@ -1,12 +1,19 @@
 import { useNavigation } from '@react-navigation/native';
-import { Text, StyleSheet, Pressable } from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  Text,
+  StyleSheet,
+  Pressable,
+  View,
+  ImageBackground,
+} from 'react-native';
 import useMqtt from '../hook/useMqttFKiosk';
+import useMenuStore from '../stores/menu';
+import { MENU_DATA } from '../dummy/menu';
 
 const ReceivedFood = () => {
   const { publish } = useMqtt();
   const navigation = useNavigation();
+  const { num } = useMenuStore();
 
   const onPressBtn = () => {
     console.log('click');
