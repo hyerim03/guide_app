@@ -17,7 +17,7 @@ function App() {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="food"
+        initialRouteName="start"
       >
         <Stack.Screen name="start" component={Start} />
         <Stack.Screen name="wait" component={Waiting} />
