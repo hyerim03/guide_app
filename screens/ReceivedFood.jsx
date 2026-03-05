@@ -6,7 +6,7 @@ import {
   View,
   ImageBackground,
 } from 'react-native';
-import useMqtt from '../hook/useMqttFKiosk';
+import useMqtt from '../hook/useMqtt';
 import useMenuStore from '../stores/menu';
 import { MENU_DATA } from '../dummy/menu';
 

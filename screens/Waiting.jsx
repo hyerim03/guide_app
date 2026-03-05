@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import useMqtt from '../hook/useMqttFKiosk';
+import useMqtt from '../hook/useMqtt';
 
 const Waiting = () => {
   const navigation = useNavigation();

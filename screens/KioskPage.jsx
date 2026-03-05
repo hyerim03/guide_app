@@ -2,7 +2,7 @@ import { Pressable, StyleSheet, Text, ToastAndroid, View } from 'react-native';
 import { MENU_DATA } from '../dummy/menu';
 import FoodItem from '../components/FoodItem';
 import { useEffect, useState } from 'react';
-import useMqtt from '../hook/useMqttFKiosk';
+import useMqtt from '../hook/useMqtt';
 import { useNavigation } from '@react-navigation/native';
 import useMenuStore from '../stores/menu';
 
@@ -26,8 +26,8 @@ const KioskPage = () => {
     } else {
       setNum(menu);
       publish('ping', `selected Menu: ${menu}`);
-      publish('ping', 'order_completed');
-      navigation.navigate('received');
+      publish('order/status', 'order_completed');
+      navigation.navigate('order_com');
     }
   };
 

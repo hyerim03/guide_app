@@ -2,14 +2,14 @@ import { useNavigation } from '@react-navigation/native';
 import { Text, StyleSheet, Pressable } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import useMqtt from '../hook/useMqttFKiosk';
+import useMqtt from '../hook/useMqtt';
 
 const StartScreen = () => {
   const navigation = useNavigation();
   const { publish } = useMqtt();
 
-  const onClickStart = async () => {
-    await publish('ping/start', 'START');
+  const onClickStart = () => {
+    publish('ping/start', 'START');
     navigation.navigate('wait');
   };
 
