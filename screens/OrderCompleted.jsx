@@ -12,9 +12,9 @@ const OrderCompleted = () => {
   const { subscribe } = useMqtt();
 
   useEffect(() => {
-    subscribe('robot/control', setState);
+    subscribe('customtopic/down', setState);
     console.log(state);
-    if (state == 'move_robot') {
+    if (state.message == 'move_robot') {
       navigation.navigate('wait');
     }
   }, [state]);

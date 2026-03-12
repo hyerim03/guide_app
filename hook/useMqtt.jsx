@@ -3,12 +3,12 @@ import { useEffect, useRef } from 'react';
 
 let globalClient = null;
 
-const useMqtt = () => {
+const useMqtt = (url = 'ws://192.168.10.140:9001') => {
   const clientRef = useRef();
 
   useEffect(() => {
     if (!globalClient) {
-      globalClient = mqtt.connect('ws://192.168.10.140:9001', {
+      globalClient = mqtt.connect(url, {
         clientId: 'guide_app_' + Math.random().toString(16).slice(2),
         keepalive: 30,
         clean: true,

@@ -12,8 +12,7 @@ const Waiting = () => {
 
   useEffect(() => {
     console.log('subscribe test');
-    subscribe('ping', setState);
-    subscribe('robot/control', setState);
+    subscribe('customtopic/down', setState);
     if (state == 'SCREEN_desc') {
       return;
     }
@@ -31,12 +30,6 @@ const Waiting = () => {
   return (
     <LinearGradient style={styles.container} colors={['#CCDFFF', '#ffffff']}>
       <Text style={styles.mainText}>안내로봇이 시연중입니다...</Text>
-      {/* <Pressable
-        onPress={() => navigation.navigate('food')}
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>임시 버튼 </Text>
-      </Pressable> */}
     </LinearGradient>
   );
 };

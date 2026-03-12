@@ -25,14 +25,14 @@ const KioskPage = () => {
       ToastAndroid.show('메뉴가 선택되지 않았습니다.', ToastAndroid.LONG);
     } else {
       setNum(menu);
-      publish('ping', `selected Menu: ${menu}`);
+      publish('customtopic/down', `selected Menu: ${menu}`);
       publish('order/status', 'order_completed');
       navigation.navigate('order_com');
     }
   };
 
   useEffect(() => {
-    publish('ping', `MENU: ${menu}`);
+    publish('customtopic/down', `MENU: ${menu}`);
   }, [menu]);
 
   return (
