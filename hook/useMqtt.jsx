@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 
 let globalClient = null;
 
-const useMqtt = (url = 'ws://192.168.93.2:9001') => {
+const useMqtt = (url = 'ws://192.168.83.2:9001') => {
   const clientRef = useRef();
 
   useEffect(() => {
