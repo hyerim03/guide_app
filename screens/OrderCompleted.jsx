@@ -14,7 +14,7 @@ const OrderCompleted = () => {
   useEffect(() => {
     subscribe('customtopic/down', setState);
     console.log(state);
-    if (state.message == 'move_robot') {
+    if (state.includes('move_robot')) {
       navigation.navigate('wait');
     }
   }, [state]);

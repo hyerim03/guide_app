@@ -6,21 +6,21 @@ import { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 const Description = () => {
-  const [state, setState] = useState();
-  const [step, setStep] = useState(' ');
+  const [state, setState] = useState('');
+  const [step, setStep] = useState('');
   const { subscribe } = useMqtt();
   const navigation = useNavigation();
 
   useEffect(() => {
     subscribe('ping', setState);
 
-    if (state?.includes('AMR')) {
-      setStep('AMR 공정');
+    if (state.includes('CMR')) {
+      setStep('CMR 공정');
     }
-    if (state?.includes('MMR')) {
+    if (state.includes('MMR')) {
       setStep('MMR 공정');
     }
-    if (state == 'MMR_END') {
+    if (state.includes('MMR_END')) {
       navigation.navigate('start');
     }
   }, [state]);
