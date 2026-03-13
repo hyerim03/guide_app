@@ -11,18 +11,21 @@ const Waiting = () => {
   const { subscribe } = useMqtt();
 
   useEffect(() => {
-    console.log('subscribe test');
     subscribe('customtopic/down', setState);
+  }, []);
+
+  useEffect(() => {
+    if (!state) return;
     if (state == 'SCREEN_desc') {
       return;
     }
     if (state.includes('SCREEN_food')) {
       navigation.navigate('food');
     }
-    if (state == 'stop_robot') {
+    if (state.includes('stop_robot')) {
       navigation.navigate('received');
     }
-    if (state == 'AMR_END') {
+    if (state.includes('AMR_END')) {
       console.log('AMR 시연 종료');
     }
   }, [state]);

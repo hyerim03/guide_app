@@ -18,10 +18,10 @@ const StartScreen = () => {
       <LinearGradient style={styles.container} colors={['#CCDFFF', '#ffffff']}>
         <Text style={styles.mainText}>어서오세요</Text>
         <Text style={styles.subText}>
-          안내를 받으시려면 {'\n'}아래 버튼을 눌러주세요.
+          관람을 하시려면{'\n'}아래 버튼을 눌러주세요.
         </Text>
         <Pressable onPress={onClickStart} style={styles.button}>
-          <Text style={styles.buttonText}>START</Text>
+          <Text style={styles.buttonText}>관람시작</Text>
         </Pressable>
       </LinearGradient>
     </SafeAreaView>
