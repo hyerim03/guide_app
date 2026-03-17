@@ -20,7 +20,7 @@ const Description = () => {
     if (state.includes('MMR')) {
       setStep('MMR 공정');
     }
-    if (state.includes('MMR_END')) {
+    if (state.includes('END')) {
       navigation.navigate('start');
     }
   }, [state]);
