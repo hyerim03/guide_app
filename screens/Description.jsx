@@ -12,8 +12,11 @@ const Description = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    subscribe('ping', setState);
+    subscribe('ping/desc', setState);
+  }, []);
 
+  useEffect(() => {
+    console.log('state changed:', state);
     if (state.includes('CMR')) {
       setStep('CMR 공정');
     }

@@ -56,7 +56,7 @@ const useMqtt = (url = 'ws://192.168.10.140:9001') => {
         }
       });
       globalClient.on('message', (topic, message) => {
-        setState(message);
+        setState(message.toString());
       });
     } else {
       console.log('mqtt not connect : subscribe');
