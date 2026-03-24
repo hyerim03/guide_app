@@ -23,6 +23,9 @@ const Description = () => {
     if (state.includes('MMR')) {
       setStep('MMR 공정');
     }
+    if(state.includes('home')){
+      setStep('가정환경')
+    }
     if (state.includes('END')) {
       navigation.navigate('start');
     }
