@@ -20,7 +20,7 @@ const OrderCompleted = () => {
   }, [state]);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
       <StatusBar hidden={true} />
       <LinearGradient style={styles.container} colors={['#CCDFFF', '#ffffff']}>
         <Text style={styles.subText}>주문이 완료되었습니다</Text>

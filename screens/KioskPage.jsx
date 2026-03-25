@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, ToastAndroid, View } from 'react-native';
+import { Pressable, StyleSheet, Text, ToastAndroid, View, useWindowDimensions, StatusBar } from 'react-native';
 import { MENU_DATA } from '../dummy/menu';
 import FoodItem from '../components/FoodItem';
 import { useEffect, useState } from 'react';
@@ -8,6 +8,8 @@ import useMenuStore from '../stores/menu';
 
 const KioskPage = () => {
   const [menu, setMenu] = useState(0);
+  const { width, height } = useWindowDimensions();
+  const isLandscape = width > height;
   const { publish } = useMqtt();
   const navigation = useNavigation();
   const { setNum } = useMenuStore();
@@ -37,11 +39,12 @@ const KioskPage = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>푸드코트</Text>
+      <StatusBar hidden={true} />
+      <View style={[styles.header, isLandscape && styles.headerLandscape]}>
+        <Text style={[styles.headerText, isLandscape && styles.headerTextLandscape]}>푸드코트</Text>
       </View>
-      <View style={styles.subHeader}>
-        <Text style={styles.subHeaderText}>Have a good day!</Text>
+      <View style={[styles.subHeader, isLandscape && styles.subHeaderLandscape]}>
+        <Text style={[styles.subHeaderText, isLandscape && styles.subHeaderTextLandscape]}>Have a good day!</Text>
       </View>
       <View style={styles.grid}>
         {MENU_DATA?.map(item => (
@@ -60,10 +63,11 @@ const KioskPage = () => {
         onPress={order}
         style={[
           styles.orderBtn,
+          isLandscape && styles.orderBtnLandscape,
           { backgroundColor: menu == 0 ? '#D6D6D6' : '#497FDA' },
         ]}
       >
-        <Text style={styles.btnText}>주문하기</Text>
+        <Text style={[styles.btnText, isLandscape && styles.btnTextLandscape]}>주문하기</Text>
       </Pressable>
     </View>
   );
@@ -118,4 +122,10 @@ const styles = StyleSheet.create({
     fontSize: 48,
     color: 'white',
   },
+  headerLandscape: { height: 80 },
+  headerTextLandscape: { fontSize: 42 },
+  subHeaderLandscape: { height: 52 },
+  subHeaderTextLandscape: { fontSize: 22 },
+  orderBtnLandscape: { height: 64, width: 400, borderRadius: 32 },
+  btnTextLandscape: { fontSize: 28 },
 });

@@ -5,6 +5,8 @@ import {
   Pressable,
   View,
   ImageBackground,
+  useWindowDimensions,
+  StatusBar,
 } from 'react-native';
 import useMqtt from '../hook/useMqtt';
 import useMenuStore from '../stores/menu';
@@ -13,7 +15,10 @@ import { MENU_DATA } from '../dummy/menu';
 const ReceivedFood = () => {
   const { publish } = useMqtt();
   const navigation = useNavigation();
-  const { num } = useMenuStore();
+  const { num: rawNum } = useMenuStore();
+  const num = rawNum || 1;
+  const { width, height } = useWindowDimensions();
+  const isLandscape = width > height;
 
   const onPressBtn = () => {
     console.log('click');
@@ -22,23 +27,51 @@ const ReceivedFood = () => {
   };
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>푸드코트</Text>
+      <StatusBar hidden={true} />
+      <View style={[styles.header, isLandscape && styles.headerLandscape]}>
+        <Text
+          style={[styles.headerText, isLandscape && styles.headerTextLandscape]}
+        >
+          푸드코트
+        </Text>
       </View>
-      <View style={styles.subHeader}>
-        <Text style={styles.subHeaderText}>Have a good day!</Text>
+      <View
+        style={[styles.subHeader, isLandscape && styles.subHeaderLandscape]}
+      >
+        <Text
+          style={[
+            styles.subHeaderText,
+            isLandscape && styles.subHeaderTextLandscape,
+          ]}
+        >
+          Have a good day!
+        </Text>
       </View>
-      <View style={styles.wrap}>
-        <Text style={styles.subText}>
+      <View style={[styles.wrap, isLandscape && styles.wrapLandscape]}>
+        <Text style={[styles.subText, isLandscape && styles.subTextLandscape]}>
           주문하신 음식을 {'\n'} 수령해 주세요.
         </Text>
         <ImageBackground
-          style={{ width: 447, height: 447 }}
+          style={
+            isLandscape
+              ? { width: 200, height: 200 }
+              : { width: 447, height: 447 }
+          }
           source={MENU_DATA[num - 1].foodImage}
           resizeMethod="cover"
         ></ImageBackground>
-        <Pressable onPress={onPressBtn} style={styles.button}>
-          <Text style={styles.buttonText}>수령완료</Text>
+        <Pressable
+          onPress={onPressBtn}
+          style={[styles.button, isLandscape && styles.buttonLandscape]}
+        >
+          <Text
+            style={[
+              styles.buttonText,
+              isLandscape && styles.buttonTextLandscape,
+            ]}
+          >
+            수령완료
+          </Text>
         </Pressable>
       </View>
     </View>
@@ -100,4 +133,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 40,
   },
+  headerLandscape: { height: 80 },
+  headerTextLandscape: { fontSize: 42 },
+  subHeaderLandscape: { height: 52 },
+  subHeaderTextLandscape: { fontSize: 22 },
+  wrapLandscape: { gap: 20 },
+  subTextLandscape: { fontSize: 28, marginTop: 16 },
+  buttonLandscape: { height: 64, width: 300, borderRadius: 32 },
+  buttonTextLandscape: { fontSize: 28 },
 });

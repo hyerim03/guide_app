@@ -1,8 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
 
 import { useEffect, useState } from 'react';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { Pressable, StyleSheet, Text, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import useMqtt from '../hook/useMqtt';
 
 const Waiting = () => {
@@ -31,9 +32,12 @@ const Waiting = () => {
   }, [state]);
 
   return (
-    <LinearGradient style={styles.container} colors={['#CCDFFF', '#ffffff']}>
-      <Text style={styles.mainText}>안내로봇이 시연중입니다...</Text>
-    </LinearGradient>
+    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+      <StatusBar hidden={true} />
+      <LinearGradient style={styles.container} colors={['#CCDFFF', '#ffffff']}>
+        <Text style={styles.mainText}>안내로봇이 시연중입니다...</Text>
+      </LinearGradient>
+    </SafeAreaView>
   );
 };
 

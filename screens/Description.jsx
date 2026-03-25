@@ -23,16 +23,16 @@ const Description = () => {
     if (state.includes('MMR')) {
       setStep('MMR 공정');
     }
-    if(state.includes('home')){
-      setStep('가정환경')
+    if (state.includes('home')) {
+      setStep('가정환경');
     }
-    if (state.includes('END')) {
+    if (state.includes('all_simulation_end')) {
       navigation.navigate('start');
     }
   }, [state]);
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
       <StatusBar hidden={true} />
       <LinearGradient style={styles.container} colors={['#CCDFFF', '#ffffff']}>
         <Text style={styles.mainText}>{step} 시연중입니다...</Text>

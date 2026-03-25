@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { Text, StyleSheet, Pressable } from 'react-native';
+import { Text, StyleSheet, Pressable, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import useMqtt from '../hook/useMqtt';
@@ -14,7 +14,8 @@ const StartScreen = () => {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }} edges={['top']}>
+      <StatusBar hidden={true} />
       <LinearGradient style={styles.container} colors={['#CCDFFF', '#ffffff']}>
         <Text style={styles.mainText}>어서오세요</Text>
         <Text style={styles.subText}>
