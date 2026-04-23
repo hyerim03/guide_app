@@ -6,6 +6,8 @@ import OrderCompleted from './screens/OrderCompleted';
 import ReceivedFood from './screens/ReceivedFood';
 import SelectSection from './screens/SelectSection';
 import DemoEnd from './screens/DemoEnd';
+import HomeSelect from './screens/HomeSelect';
+import HomeDemo from './screens/HomeDemo';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import {
@@ -59,6 +61,8 @@ function App() {
         <Stack.Screen name="desc" component={Descripiton} />
         <Stack.Screen name="received" component={ReceivedFood} />
         <Stack.Screen name="demo_end" component={DemoEnd} />
+        <Stack.Screen name="home_select" component={HomeSelect} />
+        <Stack.Screen name="home_demo" component={HomeDemo} />
       </Stack.Navigator>
     </NavigationContainer>
   );

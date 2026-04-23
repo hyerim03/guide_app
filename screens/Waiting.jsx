@@ -9,14 +9,15 @@ import { COLORS } from '../constants/colors';
 const Waiting = () => {
   const navigation = useNavigation();
   const route = useRoute();
-  const { sectionTitle = '환경' } = route.params ?? {};
+  const { sectionTitle = '환경', nextScreen = 'demo_end' } = route.params ?? {};
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.navigate('demo_end', { sectionTitle });
+      const params = nextScreen === 'demo_end' ? { sectionTitle } : {};
+      navigation.navigate(nextScreen, params);
     }, 5000);
     return () => clearTimeout(timer);
-  }, [sectionTitle]);
+  }, [sectionTitle, nextScreen]);
 
   return (
     <SafeAreaView style={{ flex: 1 }} edges={[]}>

@@ -9,7 +9,6 @@ import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
-  withDelay,
   withSpring,
 } from 'react-native-reanimated';
 import { COLORS } from '../constants/colors';
@@ -44,43 +43,6 @@ const selectList = [
     color: COLORS.accent,
   },
 ];
-
-const AnimatedCard = ({ section, icon, color, onPress, delay }) => {
-  const opacity = useSharedValue(0);
-  const translateY = useSharedValue(20);
-  const pressScale = useSharedValue(1);
-
-  useFocusEffect(
-    useCallback(() => {
-      opacity.value = 0;
-      translateY.value = 20;
-      opacity.value = withDelay(delay, withTiming(1, { duration: 400 }));
-      translateY.value = withDelay(delay, withTiming(0, { duration: 400 }));
-    }, [delay]),
-  );
-
-  const animStyle = useAnimatedStyle(() => ({
-    opacity: opacity.value,
-    transform: [{ translateY: translateY.value }, { scale: pressScale.value }],
-  }));
-
-  return (
-    <Animated.View style={animStyle}>
-      <SelectItem
-        section={section}
-        icon={icon}
-        color={color}
-        onPress={onPress}
-        onPressIn={() => {
-          pressScale.value = withSpring(0.98);
-        }}
-        onPressOut={() => {
-          pressScale.value = withSpring(1);
-        }}
-      />
-    </Animated.View>
-  );
-};
 
 const SelectSection = () => {
   const navigation = useNavigation();
@@ -117,8 +79,10 @@ const SelectSection = () => {
 
   const onPressItem = (id, title, subtitle) => {
     const sectionTitle = `${title}${subtitle}`;
-    if (id === 'logistics' || id === 'home') {
+    if (id === 'logistics') {
       navigation.navigate('wait', { sectionTitle });
+    } else if (id === 'home') {
+      navigation.navigate('wait', { sectionTitle: '가정환경', nextScreen: 'home_demo' });
     }
   };
 
@@ -153,9 +117,10 @@ const SelectSection = () => {
 
         <View style={styles.wrapItem}>
           {selectList.map((item, index) => (
-            <AnimatedCard
+            <SelectItem
               key={item.id}
               section={item.title}
+              subtitle={item.subtitle}
               icon={item.icon}
               color={item.color}
               onPress={() => onPressItem(item.id, item.title, item.subtitle)}
