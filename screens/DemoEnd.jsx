@@ -1,25 +1,16 @@
-import { useEffect } from 'react';
-import { StyleSheet, Text, StatusBar } from 'react-native';
+import { StyleSheet, Text, Pressable, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import LoadingDot from '../components/LoadingDot';
 import { COLORS } from '../constants/colors';
 
-const Waiting = () => {
+const DemoEnd = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { sectionTitle = '환경' } = route.params ?? {};
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      navigation.navigate('demo_end', { sectionTitle });
-    }, 5000);
-    return () => clearTimeout(timer);
-  }, [sectionTitle]);
-
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={[]}>
+    <SafeAreaView style={styles.safeArea} edges={[]}>
       <StatusBar hidden={true} />
       <LinearGradient
         style={styles.container}
@@ -28,16 +19,27 @@ const Waiting = () => {
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
       >
-        <Text style={styles.mainText}>{sectionTitle}으로 이동중입니다.</Text>
-        <LoadingDot />
+        <Text style={styles.mainText}>
+          {sectionTitle} 시연이 종료되었습니다.
+        </Text>
+        <Pressable
+          onPress={() => navigation.navigate('select')}
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>목록으로 가기</Text>
+        </Pressable>
       </LinearGradient>
     </SafeAreaView>
   );
 };
 
-export default Waiting;
+export default DemoEnd;
 
 const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+    backgroundColor: COLORS.gradientFrom,
+  },
   container: {
     flex: 1,
     alignItems: 'center',
@@ -49,5 +51,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: COLORS.textPrimary,
     marginBottom: 32,
+  },
+  button: {
+    height: 74,
+    paddingHorizontal: 64,
+    backgroundColor: COLORS.buttonLight,
+    borderRadius: 37,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    fontSize: 24,
+    fontWeight: '500',
   },
 });

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import useMqtt from '../hook/useMqtt';
 import { useNavigation } from '@react-navigation/native';
 import useMenuStore from '../stores/menu';
+import { COLORS } from '../constants/colors';
 
 const KioskPage = () => {
   const [menu, setMenu] = useState(0);
@@ -60,7 +61,7 @@ const KioskPage = () => {
         onPress={order}
         style={[
           styles.orderBtn,
-          { backgroundColor: menu == 0 ? '#D6D6D6' : '#497FDA' },
+          { backgroundColor: menu == 0 ? COLORS.buttonDisabled : COLORS.buttonBlue },
         ]}
       >
         <Text style={styles.btnText}>주문하기</Text>
@@ -79,25 +80,23 @@ const styles = StyleSheet.create({
   header: {
     height: 192,
     width: '100%',
-    backgroundColor: '#4A7FDA',
-    display: 'flex',
+    backgroundColor: COLORS.textBlue,
     alignItems: 'center',
     justifyContent: 'center',
   },
   headerText: {
     fontSize: 85,
-    color: 'white',
+    color: COLORS.white,
   },
   subHeader: {
     height: 106,
-    backgroundColor: '#D1E2FF',
-    display: 'flex',
+    backgroundColor: COLORS.subHeader,
     justifyContent: 'center',
     paddingLeft: 41,
   },
   subHeaderText: {
     fontSize: 40,
-    color: '#497FDA',
+    color: COLORS.buttonBlue,
   },
   grid: {
     flexDirection: 'row',
@@ -116,6 +115,6 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontSize: 48,
-    color: 'white',
+    color: COLORS.white,
   },
 });

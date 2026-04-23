@@ -1,14 +1,9 @@
 import { useNavigation } from '@react-navigation/native';
-import {
-  Text,
-  StyleSheet,
-  Pressable,
-  View,
-  ImageBackground,
-} from 'react-native';
+import { Text, StyleSheet, Pressable, View, ImageBackground } from 'react-native';
 import useMqtt from '../hook/useMqtt';
 import useMenuStore from '../stores/menu';
 import { MENU_DATA } from '../dummy/menu';
+import { COLORS } from '../constants/colors';
 
 const ReceivedFood = () => {
   const { publish } = useMqtt();
@@ -20,6 +15,7 @@ const ReceivedFood = () => {
     publish('ping', 'serve_com');
     navigation.navigate('desc');
   };
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -36,7 +32,7 @@ const ReceivedFood = () => {
           style={{ width: 447, height: 447 }}
           source={MENU_DATA[num - 1].foodImage}
           resizeMethod="cover"
-        ></ImageBackground>
+        />
         <Pressable onPress={onPressBtn} style={styles.button}>
           <Text style={styles.buttonText}>수령완료</Text>
         </Pressable>
@@ -50,30 +46,28 @@ export default ReceivedFood;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F2F7FF',
+    backgroundColor: COLORS.bgLight,
   },
   header: {
     height: 192,
     width: '100%',
-    backgroundColor: '#4A7FDA',
-    display: 'flex',
+    backgroundColor: COLORS.textBlue,
     alignItems: 'center',
     justifyContent: 'center',
   },
   headerText: {
     fontSize: 85,
-    color: 'white',
+    color: COLORS.white,
   },
   subHeader: {
     height: 106,
-    backgroundColor: '#D1E2FF',
-    display: 'flex',
+    backgroundColor: COLORS.subHeader,
     justifyContent: 'center',
     paddingLeft: 41,
   },
   subHeaderText: {
     fontSize: 40,
-    color: '#497FDA',
+    color: COLORS.buttonBlue,
   },
   wrap: {
     alignItems: 'center',
@@ -82,21 +76,20 @@ const styles = StyleSheet.create({
   button: {
     width: 400,
     height: 110,
-    backgroundColor: '#497FDA',
+    backgroundColor: COLORS.buttonBlue,
     borderRadius: 55,
-    display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonText: {
     fontSize: 40,
-    color: 'white',
+    color: COLORS.white,
     fontWeight: '700',
   },
   subText: {
     fontSize: 50,
     fontWeight: 'bold',
-    color: '#4A7FDA',
+    color: COLORS.textBlue,
     textAlign: 'center',
     marginTop: 40,
   },

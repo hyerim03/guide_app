@@ -1,28 +1,16 @@
-import { Text, StyleSheet } from 'react-native';
+import { Text, StyleSheet, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { StatusBar } from 'react-native';
-import useMqtt from '../hook/useMqtt';
-import { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { COLORS } from '../constants/colors';
 
 const OrderCompleted = () => {
-  const navigation = useNavigation();
-  const [state, setState] = useState('');
-  const { subscribe } = useMqtt();
-
-  useEffect(() => {
-    subscribe('customtopic/down', setState);
-    console.log(state);
-    if (state.includes('move_robot')) {
-      navigation.navigate('wait');
-    }
-  }, [state]);
-
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar hidden={true} />
-      <LinearGradient style={styles.container} colors={['#CCDFFF', '#ffffff']}>
+      <LinearGradient
+        style={styles.container}
+        colors={[COLORS.bgBlue, COLORS.white]}
+      >
         <Text style={styles.subText}>주문이 완료되었습니다</Text>
       </LinearGradient>
     </SafeAreaView>
@@ -36,16 +24,14 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 48,
     alignItems: 'center',
-    display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#fff',
     justifyContent: 'center',
     gap: 80,
   },
   subText: {
     fontSize: 42,
     fontWeight: 'bold',
-    color: '#4A7FDA',
+    color: COLORS.textBlue,
     textAlign: 'center',
     lineHeight: 50,
   },

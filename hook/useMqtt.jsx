@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react';
 
 let globalClient = null;
 
-const useMqtt = (url = 'ws://192.168.10.140:9001') => {
+const useMqtt = (url = 'ws://192.168.10.128:9001') => {
   const clientRef = useRef();
 
   useEffect(() => {
@@ -21,10 +21,6 @@ const useMqtt = (url = 'ws://192.168.10.140:9001') => {
 
       globalClient.on('connect', () => {
         console.log('connect');
-      });
-
-      globalClient.on('message', (topic, message) => {
-        console.log(`${topic} 토픽에서 온 메세지: ${message}`);
       });
     }
 
@@ -44,22 +40,20 @@ const useMqtt = (url = 'ws://192.168.10.140:9001') => {
     }
   };
 
-  const subscribe = (topic, setState) => {
-    console.log('subscribe connect state check:', {
-      topic,
-      connected: clientRef.current.connected,
-    });
-    if (clientRef.current?.connected) {
+  const subscribe = (topic, callback) => {
+    const doSubscribe = () => {
       clientRef.current.subscribe(topic, err => {
-        if (!err) {
-          console.log('subscribe', topic);
-        }
+        if (!err) console.log('subscribe', topic);
       });
-      globalClient.on('message', (topic, message) => {
-        setState(message.toString());
+      clientRef.current.on('message', (t, message) => {
+        if (t === topic) callback(message.toString());
       });
+    };
+
+    if (clientRef.current?.connected) {
+      doSubscribe();
     } else {
-      console.log('mqtt not connect : subscribe');
+      clientRef.current.once('connect', doSubscribe);
     }
   };
 

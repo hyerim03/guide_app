@@ -3,35 +3,29 @@ import LinearGradient from 'react-native-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import useMqtt from '../hook/useMqtt';
 import { useState, useEffect } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { COLORS } from '../constants/colors';
 
 const Description = () => {
-  const [state, setState] = useState('');
   const [step, setStep] = useState('');
   const { subscribe } = useMqtt();
-  const navigation = useNavigation();
 
   useEffect(() => {
-    subscribe('ping/desc', setState);
+    subscribe('ping/desc', msg => {
+      if (msg.includes('CMR')) {
+        setStep('CMR 공정');
+      } else if (msg.includes('MMR')) {
+        setStep('MMR 공정');
+      }
+    });
   }, []);
-
-  useEffect(() => {
-    console.log('state changed:', state);
-    if (state.includes('CMR')) {
-      setStep('CMR 공정');
-    }
-    if (state.includes('MMR')) {
-      setStep('MMR 공정');
-    }
-    if (state.includes('END')) {
-      navigation.navigate('start');
-    }
-  }, [state]);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar hidden={true} />
-      <LinearGradient style={styles.container} colors={['#CCDFFF', '#ffffff']}>
+      <LinearGradient
+        style={styles.container}
+        colors={[COLORS.bgBlue, COLORS.white]}
+      >
         <Text style={styles.mainText}>{step} 시연중입니다...</Text>
       </LinearGradient>
     </SafeAreaView>
@@ -45,15 +39,13 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 48,
     alignItems: 'center',
-    display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#fff',
     justifyContent: 'center',
     gap: 80,
   },
   mainText: {
     fontSize: 56,
     fontWeight: 'bold',
-    color: '#4A7FDA',
+    color: COLORS.textBlue,
   },
 });
