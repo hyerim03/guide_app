@@ -6,8 +6,10 @@ import OrderCompleted from './screens/OrderCompleted';
 import ReceivedFood from './screens/ReceivedFood';
 import SelectSection from './screens/SelectSection';
 import DemoEnd from './screens/DemoEnd';
-import HomeSelect from './screens/HomeSelect';
+import HomeSelect from './screens/home/HomeSelect';
 import HomeDemo from './screens/HomeDemo';
+import ControlSliderScreen from './screens/home/ControlSliderScreen';
+import ControlResultScreen from './screens/home/ControlResultScreen';
 
 import { createStackNavigator } from '@react-navigation/stack';
 import {
@@ -16,6 +18,7 @@ import {
 } from '@react-navigation/native';
 import { useEffect } from 'react';
 import useMqtt from './hook/useMqtt';
+import { ROUTES } from './constants/navigation';
 
 const Stack = createStackNavigator();
 export const navigationRef = createNavigationContainerRef();
@@ -27,11 +30,11 @@ function App() {
     subscribe('customtopic/down', msg => {
       if (!navigationRef.isReady()) return;
       if (msg.includes('SCREEN_food')) {
-        navigationRef.navigate('food');
+        navigationRef.navigate(ROUTES.FOOD);
       } else if (msg.includes('stop_robot')) {
-        navigationRef.navigate('received');
+        navigationRef.navigate(ROUTES.RECEIVED);
       } else if (msg.includes('move_robot')) {
-        navigationRef.navigate('wait');
+        navigationRef.navigate(ROUTES.WAIT);
       } else if (msg.includes('AMR_END')) {
         console.log('AMR 시연 종료');
       }
@@ -40,7 +43,7 @@ function App() {
     subscribe('ping/desc', msg => {
       if (!navigationRef.isReady()) return;
       if (msg.includes('END')) {
-        navigationRef.navigate('start');
+        navigationRef.navigate(ROUTES.START);
       }
     });
   }, []);
@@ -51,18 +54,20 @@ function App() {
         screenOptions={{
           headerShown: false,
         }}
-        initialRouteName="start"
+        initialRouteName={ROUTES.START}
       >
-        <Stack.Screen name="select" component={SelectSection} />
-        <Stack.Screen name="start" component={Start} />
-        <Stack.Screen name="wait" component={Waiting} />
-        <Stack.Screen name="food" component={KioskPage} />
-        <Stack.Screen name="order_com" component={OrderCompleted} />
-        <Stack.Screen name="desc" component={Descripiton} />
-        <Stack.Screen name="received" component={ReceivedFood} />
-        <Stack.Screen name="demo_end" component={DemoEnd} />
-        <Stack.Screen name="home_select" component={HomeSelect} />
-        <Stack.Screen name="home_demo" component={HomeDemo} />
+        <Stack.Screen name={ROUTES.SELECT} component={SelectSection} />
+        <Stack.Screen name={ROUTES.START} component={Start} />
+        <Stack.Screen name={ROUTES.WAIT} component={Waiting} />
+        <Stack.Screen name={ROUTES.FOOD} component={KioskPage} />
+        <Stack.Screen name={ROUTES.ORDER_COM} component={OrderCompleted} />
+        <Stack.Screen name={ROUTES.DESC} component={Descripiton} />
+        <Stack.Screen name={ROUTES.RECEIVED} component={ReceivedFood} />
+        <Stack.Screen name={ROUTES.DEMO_END} component={DemoEnd} />
+        <Stack.Screen name={ROUTES.HOME_SELECT} component={HomeSelect} />
+        <Stack.Screen name={ROUTES.HOME_DEMO} component={HomeDemo} />
+        <Stack.Screen name={ROUTES.HOME_CONTROL} component={ControlSliderScreen} />
+        <Stack.Screen name={ROUTES.HOME_RESULT} component={ControlResultScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

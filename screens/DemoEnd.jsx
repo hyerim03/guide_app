@@ -1,8 +1,10 @@
-import { StyleSheet, Text, Pressable, StatusBar } from 'react-native';
+import { StyleSheet, Text, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { COLORS } from '../constants/colors';
+import { ROUTES } from '../constants/navigation';
+import PrimaryButton from '../components/PrimaryButton';
 
 const DemoEnd = () => {
   const navigation = useNavigation();
@@ -22,12 +24,10 @@ const DemoEnd = () => {
         <Text style={styles.mainText}>
           {sectionTitle} 시연이 종료되었습니다.
         </Text>
-        <Pressable
-          onPress={() => navigation.navigate('select')}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>목록으로 가기</Text>
-        </Pressable>
+        <PrimaryButton
+          label="목록으로 가기"
+          onPress={() => navigation.navigate(ROUTES.SELECT)}
+        />
       </LinearGradient>
     </SafeAreaView>
   );
@@ -51,17 +51,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: COLORS.textPrimary,
     marginBottom: 32,
-  },
-  button: {
-    height: 74,
-    paddingHorizontal: 64,
-    backgroundColor: COLORS.buttonLight,
-    borderRadius: 37,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    fontSize: 24,
-    fontWeight: '500',
   },
 });

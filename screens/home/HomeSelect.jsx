@@ -2,47 +2,22 @@ import { StyleSheet, StatusBar, View, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
-import { Thermometer, Droplets, Sun, LogOut } from 'lucide-react-native';
-import { COLORS } from '../constants/colors';
-import { SelectItem } from '../components/SelectItem';
-
-const controlList = [
-  {
-    id: 'temperature',
-    title: '온도',
-    subtitle: '제어',
-    icon: Thermometer,
-    color: '#EF4444',
-  },
-  {
-    id: 'humidity',
-    title: '습도',
-    subtitle: '제어',
-    icon: Droplets,
-    color: '#3B82F6',
-  },
-  {
-    id: 'brightness',
-    title: '조도',
-    subtitle: '제어',
-    icon: Sun,
-    color: '#EAB308',
-  },
-  {
-    id: 'end',
-    title: '시연',
-    subtitle: '종료',
-    icon: LogOut,
-    color: '#6B7280',
-  },
-];
+import { COLORS } from '../../constants/colors';
+import { ROUTES } from '../../constants/navigation';
+import { CONTROL_LIST, CONTROL_CONFIGS } from '../../constants/controls';
+import { SelectItem } from '../../components/SelectItem';
 
 const HomeSelect = () => {
   const navigation = useNavigation();
 
   const handleSelect = id => {
     if (id === 'end') {
-      navigation.navigate('demo_end', { sectionTitle: '가정환경' });
+      navigation.navigate(ROUTES.DEMO_END, { sectionTitle: '가정환경' });
+      return;
+    }
+    const cfg = CONTROL_CONFIGS[id];
+    if (cfg) {
+      navigation.navigate(ROUTES.HOME_CONTROL, { controlId: id, ...cfg });
     }
   };
 
@@ -58,7 +33,7 @@ const HomeSelect = () => {
       >
         <Text style={styles.title}>제어할 항목을 선택해주세요</Text>
         <View style={styles.grid}>
-          {controlList.map((item, index) => (
+          {CONTROL_LIST.map((item, index) => (
             <SelectItem
               key={item.id}
               section={item.title}

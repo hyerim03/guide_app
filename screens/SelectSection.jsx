@@ -4,7 +4,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { SelectItem } from '../components/SelectItem';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { Warehouse, Factory, Home, UtensilsCrossed } from 'lucide-react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -12,37 +11,8 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 import { COLORS } from '../constants/colors';
-
-const selectList = [
-  {
-    id: 'logistics',
-    title: '물류',
-    subtitle: '환경',
-    icon: Warehouse,
-    color: COLORS.accent,
-  },
-  {
-    id: 'production',
-    title: '생산',
-    subtitle: '환경',
-    icon: Factory,
-    color: COLORS.accent,
-  },
-  {
-    id: 'home',
-    title: '가정',
-    subtitle: '환경',
-    icon: Home,
-    color: COLORS.accent,
-  },
-  {
-    id: 'restaurant',
-    title: '식당',
-    subtitle: '환경',
-    icon: UtensilsCrossed,
-    color: COLORS.accent,
-  },
-];
+import { ROUTES } from '../constants/navigation';
+import { SELECT_LIST } from '../constants/controls';
 
 const SelectSection = () => {
   const navigation = useNavigation();
@@ -80,9 +50,9 @@ const SelectSection = () => {
   const onPressItem = (id, title, subtitle) => {
     const sectionTitle = `${title}${subtitle}`;
     if (id === 'logistics') {
-      navigation.navigate('wait', { sectionTitle });
+      navigation.navigate(ROUTES.WAIT, { sectionTitle });
     } else if (id === 'home') {
-      navigation.navigate('wait', { sectionTitle: '가정환경', nextScreen: 'home_demo' });
+      navigation.navigate(ROUTES.WAIT, { sectionTitle: '가정환경', nextScreen: ROUTES.HOME_DEMO });
     }
   };
 
@@ -98,7 +68,7 @@ const SelectSection = () => {
       >
         <Animated.View style={[styles.homeBtn, homeAnimStyle]}>
           <Pressable
-            onPress={() => navigation.navigate('start')}
+            onPress={() => navigation.navigate(ROUTES.START)}
             onPressIn={() => {
               homePressScale.value = withSpring(0.95);
             }}
@@ -116,7 +86,7 @@ const SelectSection = () => {
         </Animated.Text>
 
         <View style={styles.wrapItem}>
-          {selectList.map((item, index) => (
+          {SELECT_LIST.map((item, index) => (
             <SelectItem
               key={item.id}
               section={item.title}

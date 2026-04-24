@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
-import { Text, StyleSheet, Pressable, StatusBar, useColorScheme } from 'react-native';
+import { Text, StyleSheet, StatusBar, useColorScheme } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Animated, {
@@ -8,10 +8,11 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
   withDelay,
-  withSpring,
 } from 'react-native-reanimated';
 import useMqtt from '../hook/useMqtt';
 import { THEMES } from '../constants/colors';
+import { ROUTES } from '../constants/navigation';
+import PrimaryButton from '../components/PrimaryButton';
 
 const StartScreen = () => {
   const navigation = useNavigation();
@@ -23,7 +24,6 @@ const StartScreen = () => {
   const textY = useSharedValue(20);
   const opacity = useSharedValue(0);
   const entryScale = useSharedValue(0.9);
-  const pressScale = useSharedValue(1);
 
   useFocusEffect(
     useCallback(() => {
@@ -31,7 +31,6 @@ const StartScreen = () => {
       textY.value = 20;
       opacity.value = 0;
       entryScale.value = 0.9;
-      pressScale.value = 1;
 
       textOpacity.value = withTiming(1, { duration: 600 });
       textY.value = withTiming(0, { duration: 600 });
@@ -47,12 +46,12 @@ const StartScreen = () => {
 
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
-    transform: [{ scale: entryScale.value * pressScale.value }],
+    transform: [{ scale: entryScale.value }],
   }));
 
   const onClickStart = () => {
     publish('ping/start', 'START');
-    navigation.navigate('select');
+    navigation.navigate(ROUTES.SELECT);
   };
 
   return (
@@ -77,17 +76,12 @@ const StartScreen = () => {
           </Text>
         </Animated.View>
         <Animated.View style={animatedStyle}>
-          <Pressable
+          <PrimaryButton
+            label="시작하기"
             onPress={onClickStart}
-            onPressIn={() => { pressScale.value = withSpring(0.95); }}
-            onPressOut={() => { pressScale.value = withSpring(1); }}
-            style={[styles.button, {
-              backgroundColor: theme.buttonBg,
-              borderColor: theme.buttonBorder,
-            }]}
-          >
-            <Text style={[styles.buttonText, { color: theme.buttonText }]}>시작하기</Text>
-          </Pressable>
+            style={{ backgroundColor: theme.buttonBg, borderColor: theme.buttonBorder }}
+            textStyle={{ color: theme.buttonText }}
+          />
         </Animated.View>
       </LinearGradient>
     </SafeAreaView>
@@ -116,17 +110,5 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 50,
     marginBottom: 48,
-  },
-  button: {
-    height: 74,
-    paddingHorizontal: 64,
-    borderRadius: 37,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  buttonText: {
-    fontSize: 24,
-    fontWeight: '500',
   },
 });
