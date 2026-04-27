@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { StyleSheet, View, Animated } from 'react-native';
-import { COLORS } from '../constants/colors';
+import { COLORS } from '../../constants/colors';
 
 const BOUNCE_HEIGHT = -3;
 const DURATION = 420;
@@ -37,7 +37,11 @@ const LoadingDot = () => {
       ]);
 
     const loop = Animated.loop(
-      Animated.stagger(STAGGER_DELAY, [bounce(anim0), bounce(anim1), bounce(anim2)]),
+      Animated.stagger(STAGGER_DELAY, [
+        bounce(anim0),
+        bounce(anim1),
+        bounce(anim2),
+      ]),
     );
 
     loop.start();

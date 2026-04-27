@@ -12,7 +12,7 @@ import Animated, {
 import useMqtt from '../hook/useMqtt';
 import { THEMES } from '../constants/colors';
 import { ROUTES } from '../constants/navigation';
-import PrimaryButton from '../components/PrimaryButton';
+import PrimaryButton from '../components/ui/PrimaryButton';
 
 const StartScreen = () => {
   const navigation = useNavigation();
@@ -70,7 +70,9 @@ const StartScreen = () => {
         end={{ x: 1, y: 0 }}
       >
         <Animated.View style={[styles.textWrap, textAnimatedStyle]}>
-          <Text style={[styles.mainText, { color: theme.textPrimary }]}>안녕하세요</Text>
+          <Text style={[styles.mainText, { color: theme.textPrimary }]}>
+            안녕하세요
+          </Text>
           <Text style={[styles.subText, { color: theme.textPrimary }]}>
             관람을 하시려면{'\n'}아래 버튼을 클릭해주세요.
           </Text>
@@ -79,7 +81,10 @@ const StartScreen = () => {
           <PrimaryButton
             label="시작하기"
             onPress={onClickStart}
-            style={{ backgroundColor: theme.buttonBg, borderColor: theme.buttonBorder }}
+            style={{
+              backgroundColor: theme.buttonBg,
+              borderColor: theme.buttonBorder,
+            }}
             textStyle={{ color: theme.buttonText }}
           />
         </Animated.View>

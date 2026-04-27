@@ -4,9 +4,9 @@ import Animated, {
   useAnimatedStyle,
   withSpring,
 } from 'react-native-reanimated';
-import { COLORS } from '../constants/colors';
+import { COLORS } from '../../constants/colors';
 
-const PrimaryButton = ({ label, onPress, style, textStyle }) => {
+const BlueBtn = ({ label, onPress, style, textStyle }) => {
   const pressScale = useSharedValue(1);
 
   const animStyle = useAnimatedStyle(() => ({
@@ -27,22 +27,20 @@ const PrimaryButton = ({ label, onPress, style, textStyle }) => {
   );
 };
 
-export default PrimaryButton;
+export default BlueBtn;
 
 const styles = StyleSheet.create({
   button: {
-    height: 74,
     paddingHorizontal: 64,
-    borderRadius: 37,
-    borderWidth: 1,
-    backgroundColor: COLORS.buttonLight,
-    borderColor: '#D4D9DE',
+    paddingVertical: 16,
+    borderRadius: 999,
+    backgroundColor: COLORS.buttonBlue,
     alignItems: 'center',
     justifyContent: 'center',
   },
   buttonText: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: '500',
-    color: COLORS.textPrimary,
+    color: COLORS.white,
   },
 });

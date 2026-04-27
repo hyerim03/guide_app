@@ -1,5 +1,9 @@
 import Start from './screens/Start';
 import Waiting from './screens/Waiting';
+import SeatSelection from './screens/restaurant/SeatSelection';
+import FoodSelect from './screens/restaurant/FoodSelect';
+import FoodResult from './screens/restaurant/FoodResult';
+import GetFoodMove from './screens/restaurant/GetFoodMove';
 import KioskPage from './screens/KioskPage';
 import Descripiton from './screens/Description';
 import OrderCompleted from './screens/OrderCompleted';
@@ -59,6 +63,10 @@ function App() {
         <Stack.Screen name={ROUTES.SELECT} component={SelectSection} />
         <Stack.Screen name={ROUTES.START} component={Start} />
         <Stack.Screen name={ROUTES.WAIT} component={Waiting} />
+        <Stack.Screen name={ROUTES.SEAT_SELECT} component={SeatSelection} />
+        <Stack.Screen name={ROUTES.FOOD_SELECT} component={FoodSelect} />
+        <Stack.Screen name={ROUTES.FOOD_RESULT} component={FoodResult} />
+        <Stack.Screen name={ROUTES.GET_FOOD_MOVE} component={GetFoodMove} />
         <Stack.Screen name={ROUTES.FOOD} component={KioskPage} />
         <Stack.Screen name={ROUTES.ORDER_COM} component={OrderCompleted} />
         <Stack.Screen name={ROUTES.DESC} component={Descripiton} />

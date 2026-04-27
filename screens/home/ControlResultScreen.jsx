@@ -14,7 +14,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { COLORS } from '../../constants/colors';
 import { ROUTES } from '../../constants/navigation';
-import PrimaryButton from '../../components/PrimaryButton';
+import PrimaryButton from '../../components/ui/PrimaryButton';
 import ThermometerVisual from '../../components/home/ThermometerVisual';
 import WaterLevelVisual from '../../components/home/WaterLevelVisual';
 import BrightnessVisual from '../../components/home/BrightnessVisual';

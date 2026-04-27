@@ -73,7 +73,34 @@ export const CONTROL_LIST = [
 ];
 
 export const CONTROL_CONFIGS = {
-  temperature: { label: '온도', unit: '°C', min: 16,   max: 40,   initial: 24,  accentColor: '#EF4444', format: 'number', visualStyle: 'thermometer' },
-  humidity:    { label: '습도', unit: '%',  min: 0,    max: 100,  initial: 50,  accentColor: '#3B82F6', format: 'number', visualStyle: 'waterlevel'  },
-  brightness:  { label: '조도', unit: '',   min: 0,    max: 1439, initial: 720, accentColor: '#EAB308', format: 'time',   visualStyle: 'glow'        },
+  temperature: {
+    label: '온도',
+    unit: '°C',
+    min: 16,
+    max: 40,
+    initial: 24,
+    accentColor: '#EF4444',
+    format: 'number',
+    visualStyle: 'thermometer',
+  },
+  humidity: {
+    label: '습도',
+    unit: '%',
+    min: 0,
+    max: 100,
+    initial: 50,
+    accentColor: '#3B82F6',
+    format: 'number',
+    visualStyle: 'waterlevel',
+  },
+  brightness: {
+    label: '조도',
+    unit: '',
+    min: 0,
+    max: 1439,
+    initial: 720,
+    accentColor: '#EAB308',
+    format: 'time',
+    visualStyle: 'glow',
+  },
 };

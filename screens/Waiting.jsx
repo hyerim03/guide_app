@@ -3,7 +3,7 @@ import { StyleSheet, Text, StatusBar } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import LoadingDot from '../components/LoadingDot';
+import LoadingDot from '../components/ui/LoadingDot';
 import { COLORS } from '../constants/colors';
 
 const Waiting = () => {

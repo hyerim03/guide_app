@@ -9,6 +9,7 @@ const ReceivedFood = () => {
   const { publish } = useMqtt();
   const navigation = useNavigation();
   const { num } = useMenuStore();
+  const menuItem = MENU_DATA[num - 1] ?? null;
 
   const onPressBtn = () => {
     console.log('click');
@@ -28,11 +29,13 @@ const ReceivedFood = () => {
         <Text style={styles.subText}>
           주문하신 음식을 {'\n'} 수령해 주세요.
         </Text>
-        <ImageBackground
-          style={{ width: 447, height: 447 }}
-          source={MENU_DATA[num - 1].foodImage}
-          resizeMethod="cover"
-        />
+        {menuItem && (
+          <ImageBackground
+            style={{ width: 447, height: 447 }}
+            source={menuItem.foodImage}
+            resizeMethod="cover"
+          />
+        )}
         <Pressable onPress={onPressBtn} style={styles.button}>
           <Text style={styles.buttonText}>수령완료</Text>
         </Pressable>

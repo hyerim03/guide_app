@@ -51,8 +51,18 @@ const SelectSection = () => {
     const sectionTitle = `${title}${subtitle}`;
     if (id === 'logistics') {
       navigation.navigate(ROUTES.WAIT, { sectionTitle });
+    } else if (id === 'production') {
+      navigation.navigate(ROUTES.WAIT, { sectionTitle });
     } else if (id === 'home') {
-      navigation.navigate(ROUTES.WAIT, { sectionTitle: '가정환경', nextScreen: ROUTES.HOME_DEMO });
+      navigation.navigate(ROUTES.WAIT, {
+        sectionTitle,
+        nextScreen: ROUTES.HOME_DEMO,
+      });
+    } else if (id === 'restaurant') {
+      navigation.navigate(ROUTES.WAIT, {
+        sectionTitle,
+        nextScreen: ROUTES.SEAT_SELECT,
+      });
     }
   };
 
