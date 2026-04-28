@@ -1,0 +1,15 @@
+export const ROUTES = {
+  START: 'start',
+  SELECT: 'select',
+  WAIT: 'wait',
+  RESTAURANT_DEMO: 'restaurant_demo',
+  SEAT_SELECT: 'seat_select',
+  FOOD_SELECT: 'food_select',
+  GET_FOOD_MOVE: 'get_food_move',
+  RECEIVED: 'received',
+  DEMO_END: 'demo_end',
+  HOME_DEMO: 'home_demo',
+  HOME_SELECT: 'home_select',
+  HOME_CONTROL: 'home_control',
+  HOME_RESULT: 'home_result',
+};
