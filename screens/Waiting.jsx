@@ -13,8 +13,7 @@ const Waiting = () => {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      const params = nextScreen === 'demo_end' ? { sectionTitle } : {};
-      navigation.navigate(nextScreen, params);
+      navigation.navigate(nextScreen, { sectionTitle });
     }, 5000);
     return () => clearTimeout(timer);
   }, [sectionTitle, nextScreen]);

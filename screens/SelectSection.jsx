@@ -50,9 +50,9 @@ const SelectSection = () => {
   const onPressItem = (id, title, subtitle) => {
     const sectionTitle = `${title}${subtitle}`;
     if (id === 'logistics') {
-      navigation.navigate(ROUTES.WAIT, { sectionTitle });
+      navigation.navigate(ROUTES.WAIT, { sectionTitle, nextScreen: ROUTES.DEMO_PROGRESS });
     } else if (id === 'production') {
-      navigation.navigate(ROUTES.WAIT, { sectionTitle });
+      navigation.navigate(ROUTES.WAIT, { sectionTitle, nextScreen: ROUTES.DEMO_PROGRESS });
     } else if (id === 'home') {
       navigation.navigate(ROUTES.WAIT, {
         sectionTitle,

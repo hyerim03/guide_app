@@ -6,6 +6,7 @@ import GetFoodMove from './screens/restaurant/GetFoodMove';
 import ReceivedFood from './screens/restaurant/ReceivedFood';
 import SelectSection from './screens/SelectSection';
 import DemoEnd from './screens/DemoEnd';
+import DemoProgress from './screens/DemoProgress';
 import HomeSelect from './screens/home/HomeSelect';
 import DemoScreen from './screens/DemoScreen';
 import ControlSliderScreen from './screens/home/ControlSliderScreen';
@@ -60,6 +61,7 @@ function App() {
         <Stack.Screen name={ROUTES.GET_FOOD_MOVE} component={GetFoodMove} />
         <Stack.Screen name={ROUTES.RECEIVED} component={ReceivedFood} />
         <Stack.Screen name={ROUTES.DEMO_END} component={DemoEnd} />
+        <Stack.Screen name={ROUTES.DEMO_PROGRESS} component={DemoProgress} />
         <Stack.Screen name={ROUTES.HOME_SELECT} component={HomeSelect} />
         <Stack.Screen
           name={ROUTES.HOME_DEMO}

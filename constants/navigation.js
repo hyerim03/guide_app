@@ -8,6 +8,7 @@ export const ROUTES = {
   GET_FOOD_MOVE: 'get_food_move',
   RECEIVED: 'received',
   DEMO_END: 'demo_end',
+  DEMO_PROGRESS: 'demo_progress',
   HOME_DEMO: 'home_demo',
   HOME_SELECT: 'home_select',
   HOME_CONTROL: 'home_control',
