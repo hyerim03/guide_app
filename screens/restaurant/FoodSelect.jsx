@@ -98,7 +98,7 @@ const FoodSelect = ({ route }) => {
   const handleConfirm = () => {
     if (selectedFood !== null) {
       setNum(selectedFood);
-      navigation.navigate(ROUTES.FOOD_RESULT, { food: selectedFood, seat });
+      navigation.navigate(ROUTES.GET_FOOD_MOVE, { food: selectedFood, seat });
     }
   };
 

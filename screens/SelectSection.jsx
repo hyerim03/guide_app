@@ -61,7 +61,7 @@ const SelectSection = () => {
     } else if (id === 'restaurant') {
       navigation.navigate(ROUTES.WAIT, {
         sectionTitle,
-        nextScreen: ROUTES.SEAT_SELECT,
+        nextScreen: ROUTES.RESTAURANT_DEMO,
       });
     }
   };

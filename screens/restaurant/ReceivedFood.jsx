@@ -1,16 +1,19 @@
 import { useCallback } from 'react';
-import { StyleSheet, StatusBar, Text, View } from 'react-native';
+import { StyleSheet, StatusBar, Text, View, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import LinearGradient from 'react-native-linear-gradient';
+import { Check } from 'lucide-react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
+  withSpring,
+  withDelay,
 } from 'react-native-reanimated';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { ROUTES } from '../../constants/navigation';
+import useMqtt from '../../hook/useMqtt';
 import { COLORS } from '../../constants/colors';
-import LoadingDot from '../../components/ui/LoadingDot';
+import { ROUTES } from '../../constants/navigation';
 
 const FOOD_NAMES = {
   1: '아메리카노',
@@ -19,25 +22,27 @@ const FOOD_NAMES = {
   4: '카푸치노',
 };
 
-const GetFoodMove = ({ route }) => {
+const ReceivedFood = ({ route }) => {
   const navigation = useNavigation();
-  const { food, seat } = route?.params ?? {};
+  const { publish } = useMqtt();
+  const { seat, food } = route?.params ?? {};
 
   const cardOpacity = useSharedValue(0);
   const cardY = useSharedValue(20);
+  const iconScale = useSharedValue(0);
+  const btnOpacity = useSharedValue(0);
 
   useFocusEffect(
     useCallback(() => {
       cardOpacity.value = 0;
       cardY.value = 20;
+      iconScale.value = 0;
+      btnOpacity.value = 0;
+
       cardOpacity.value = withTiming(1, { duration: 400 });
       cardY.value = withTiming(0, { duration: 400 });
-
-      const timer = setTimeout(() => {
-        navigation.navigate(ROUTES.RECEIVED, { food, seat });
-      }, 5000);
-
-      return () => clearTimeout(timer);
+      iconScale.value = withSpring(1, { stiffness: 200, damping: 15 });
+      btnOpacity.value = withDelay(300, withTiming(1, { duration: 400 }));
     }, []),
   );
 
@@ -45,6 +50,19 @@ const GetFoodMove = ({ route }) => {
     opacity: cardOpacity.value,
     transform: [{ translateY: cardY.value }],
   }));
+
+  const iconAnimStyle = useAnimatedStyle(() => ({
+    transform: [{ scale: iconScale.value }],
+  }));
+
+  const btnAnimStyle = useAnimatedStyle(() => ({
+    opacity: btnOpacity.value,
+  }));
+
+  const handlePickup = () => {
+    publish('ping', 'serve_com');
+    navigation.navigate(ROUTES.DEMO_END, { sectionTitle: '식당' });
+  };
 
   return (
     <SafeAreaView style={{ flex: 1 }} edges={[]}>
@@ -57,9 +75,17 @@ const GetFoodMove = ({ route }) => {
         end={{ x: 1, y: 0 }}
       >
         <Animated.View style={[styles.card, cardAnimStyle]}>
-          <Text style={styles.title}>주문이 완료되었습니다</Text>
-          <Text style={styles.subtitle}>로봇이 음식을 가지고 이동중입니다</Text>
+          {/* Check icon */}
+          <Animated.View style={[styles.iconWrap, iconAnimStyle]}>
+            <View style={styles.iconCircle}>
+              <Check size={40} color={COLORS.buttonBlue} strokeWidth={2.5} />
+            </View>
+          </Animated.View>
 
+          <Text style={styles.title}>음식이 도착했습니다</Text>
+          <Text style={styles.subtitle}>주문하신 음식을 수령해주세요</Text>
+
+          {/* Order info */}
           <View style={styles.infoBox}>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>좌석 번호</Text>
@@ -78,17 +104,19 @@ const GetFoodMove = ({ route }) => {
             </View>
           </View>
 
-          <View style={styles.loadingSection}>
-            <Text style={styles.loadingLabel}>배달 준비중</Text>
-            <LoadingDot />
-          </View>
+          {/* Button */}
+          <Animated.View style={[styles.btnWrap, btnAnimStyle]}>
+            <Pressable onPress={handlePickup} style={styles.btn}>
+              <Text style={styles.btnText}>음식 수령 완료</Text>
+            </Pressable>
+          </Animated.View>
         </Animated.View>
       </LinearGradient>
     </SafeAreaView>
   );
 };
 
-export default GetFoodMove;
+export default ReceivedFood;
 
 const styles = StyleSheet.create({
   container: {
@@ -105,6 +133,18 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: COLORS.border,
     padding: 40,
+  },
+  iconWrap: {
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  iconCircle: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: COLORS.bgBlue,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
     fontSize: 30,
@@ -162,12 +202,19 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     color: COLORS.buttonBlue,
   },
-  loadingSection: {
+  btnWrap: {
+    width: '100%',
+  },
+  btn: {
+    width: '100%',
+    paddingVertical: 20,
+    backgroundColor: COLORS.buttonBlue,
+    borderRadius: 16,
     alignItems: 'center',
   },
-  loadingLabel: {
-    fontSize: 14,
-    color: COLORS.textSecondary,
-    marginBottom: 4,
+  btnText: {
+    fontSize: 20,
+    fontWeight: '500',
+    color: COLORS.white,
   },
 });

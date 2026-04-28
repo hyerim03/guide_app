@@ -24,6 +24,7 @@ const DemoEnd = () => {
         <Text style={styles.mainText}>
           {sectionTitle} 시연이 종료되었습니다.
         </Text>
+        <Text style={styles.subText}>이용해 주셔서 감사합니다</Text>
         <PrimaryButton
           label="목록으로 가기"
           onPress={() => navigation.navigate(ROUTES.SELECT)}
@@ -50,6 +51,11 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: 'bold',
     color: COLORS.textPrimary,
-    marginBottom: 32,
+    marginBottom: 12,
+  },
+  subText: {
+    fontSize: 24,
+    color: COLORS.textSecondary,
+    marginBottom: 48,
   },
 });
